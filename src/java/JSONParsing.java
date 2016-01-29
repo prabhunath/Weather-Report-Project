@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import static java.lang.System.out;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -84,8 +87,9 @@ public class JSONParsing extends HttpServlet {
         JsonParser jp = Json.createParser(new StringReader(JsonData));
         PrintWriter pw= response.getWriter();
         int temp=0;
-        
-        boolean flag=false;
+        SimpleDateFormat df = new SimpleDateFormat("hh:mm:ss a",Locale.ENGLISH);
+        System.out.println(df.format(new Date()));
+        boolean flag=false,rise_flag=false,sunset_flag=false;
                 while(jp.hasNext())
                 {
                     switch(jp.next())
@@ -124,6 +128,14 @@ public class JSONParsing extends HttpServlet {
                            {
                                flag=true;
                            }
+                           if(jp.getString().toUpperCase().equals("SUNRISE"))
+                           {
+                               rise_flag=true;
+                           }
+                           if(jp.getString().toUpperCase().equals("SUNSET"))
+                           {
+                               sunset_flag=true;
+                           }
                             break;
                         }
                         case VALUE_STRING:
@@ -136,11 +148,35 @@ public class JSONParsing extends HttpServlet {
                         {
                            //pw.write("<br>VALUE_NUMBER: "+jp.getInt());
                             pw.write("<br>: "+jp.getInt());
-                            if(flag)
+                           /* if(flag)
                             {
                                 temp=jp.getInt();
                                 flag=false;
                             }
+                            else if(rise_flag)
+                            {
+                                //temp=jp.getInt();
+                                int seconds1 = jp.getInt();
+                                Date date1 = new Date(seconds1 * 1000);
+                                SimpleDateFormat sdf1 = new SimpleDateFormat("EEEE,MMMM d,yyyy h:mm,a");
+                                pw.write("<br>"+sdf1.format(date1));
+                                rise_flag=false;
+                            }
+                            else if(sunset_flag)
+                            {
+                                //temp=jp.getInt();
+                                int seconds1 = jp.getInt();
+                                Date date1 = new Date(seconds1 * 1000);
+                                SimpleDateFormat sdf1 = new SimpleDateFormat("EEEE,MMMM d,yyyy h:mm,a");
+                                pw.write("<br>"+sdf1.format(date1));
+                                rise_flag=false;
+                                sunset_flag=false;
+                            }
+                            else
+                            {
+                                 pw.write("<br>: "+jp.getInt());
+                            }*/
+                           
                           break;  
                         }
                         default:

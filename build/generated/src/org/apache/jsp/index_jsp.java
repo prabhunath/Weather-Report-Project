@@ -102,7 +102,8 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <form action=\"DataFetched.jsp\" method=\"post\">\n");
       out.write("                \n");
       out.write("                  <td>Pin Code</td>\n");
-      out.write("                    <td><input type=\"text\" name=\"pin\" class='btn'></td>\n");
+      out.write("                    <td><input type=\"text\" name=\"pinCode\" class='btn'></td>\n");
+      out.write("                    <tr><td></td><td><input type=\"submit\" name =\"Check weather\" class=\"btn\"></td></tr> \n");
       out.write("            </form>\n");
       out.write("            </tr>\n");
       out.write("            <tr>\n");
